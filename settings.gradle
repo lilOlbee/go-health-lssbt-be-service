@@ -1,0 +1,6 @@
+rootProject.name = 'lssbt.service'
+
+include 'app'
+include 'adapter'
+include 'domain'
+include 'business'

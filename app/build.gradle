@@ -1,0 +1,9 @@
+apply plugin: "org.springframework.boot"
+
+dependencies {
+    api project(':adapter')
+    api project(':business')
+    api project(':domain')
+
+    api("org.springframework.boot:spring-boot-starter")
+}

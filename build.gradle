@@ -1,0 +1,56 @@
+buildscript {
+	repositories {
+		mavenCentral()
+		gradlePluginPortal()
+	}
+
+	ext {
+		springBootVersion = '3.3.0'
+		spotlessVersion = '6.25.0'
+		googleJavaFormatVersion = '1.22.0'
+	}
+
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath("com.diffplug.spotless:spotless-plugin-gradle:${spotlessVersion}")
+	}
+}
+
+group = 'lssbt.service'
+version = '0.0.1-SNAPSHOT'
+
+subprojects {
+	apply plugin: "java-library"
+	apply plugin: "io.spring.dependency-management"
+	apply plugin: "com.diffplug.spotless"
+
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
+
+	repositories {
+		mavenCentral()
+	}
+
+	dependencies {
+		implementation("org.springframework.boot:spring-boot-starter")
+
+		testImplementation("org.springframework.boot:spring-boot-starter-test")
+		testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+	}
+
+	spotless {
+		java {
+			removeUnusedImports()
+			trimTrailingWhitespace()
+			googleJavaFormat(googleJavaFormatVersion)
+		}
+	}
+
+	tasks.withType(JavaCompile) {
+		dependsOn 'spotlessApply'
+	}
+
+	tasks.withType(Test) {
+		useJUnitPlatform()
+	}
+}
