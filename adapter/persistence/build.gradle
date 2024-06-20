@@ -1,0 +1,7 @@
+dependencies {
+    api project(':adapter:persistence:db-model')
+    api project(':business')
+    api project(':domain')
+
+    implementation("org.springframework:spring-web:${springContextVersion}")
+}

@@ -1,0 +1,8 @@
+CREATE TABLE public.ISSUE (
+    ID VARCHAR(255) PRIMARY KEY NOT NULL,
+    Description VARCHAR(255),
+    ParentId VARCHAR(255),
+    Status VARCHAR(25),
+    CreationTimestamp TIMESTAMP WITH TIME ZONE,
+    Link VARCHAR(100)
+);

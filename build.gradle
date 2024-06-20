@@ -8,15 +8,23 @@ buildscript {
 		springBootVersion = '3.3.0'
 		spotlessVersion = '6.25.0'
 		googleJavaFormatVersion = '1.22.0'
+		immutablesVersion = '2.10.1'
+		springContextVersion = '6.1.9'
+		springTxVersion = '6.1.9'
+		liquibaseGradlePluginVersion = '2.2.2'
 	}
 
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 		classpath("com.diffplug.spotless:spotless-plugin-gradle:${spotlessVersion}")
+		classpath "org.liquibase:liquibase-gradle-plugin:${liquibaseGradlePluginVersion}"
+		classpath("nu.studer:gradle-jooq-plugin:9.0")
+		classpath("dev.bombinating:jooq-gradle-plugin:1.7.0")
+		classpath("com.google.cloud.tools:jib-gradle-plugin:3.4.1")
 	}
 }
 
-group = 'lssbt.service'
+group = 'com.gohealth.lssbt.service'
 version = '0.0.1-SNAPSHOT'
 
 subprojects {
@@ -28,14 +36,19 @@ subprojects {
 	targetCompatibility = JavaVersion.VERSION_21
 
 	repositories {
+		mavenLocal()
 		mavenCentral()
 	}
 
 	dependencies {
-		implementation("org.springframework.boot:spring-boot-starter")
+		implementation("org.postgresql:postgresql:42.7.3")
+		implementation("com.zaxxer:HikariCP:5.1.0")
+		implementation("org.jooq:jooq:3.19.10")
+		implementation("org.springframework:spring-jdbc:6.1.9")
 
-		testImplementation("org.springframework.boot:spring-boot-starter-test")
-		testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+		compileOnly("org.immutables:value:${immutablesVersion}")
+		annotationProcessor("org.immutables:value:${immutablesVersion}")
+
 	}
 
 	spotless {

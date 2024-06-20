@@ -1,1 +1,5 @@
-dependencies {}
+dependencies {
+    api project(':adapter:persistence')
+    api project(':adapter:persistence:db-model')
+    api project(':adapter:ui')
+}

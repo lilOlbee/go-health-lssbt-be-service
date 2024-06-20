@@ -1,6 +1,10 @@
-rootProject.name = 'lssbt.service'
+rootProject.name = 'lssbt-be-service'
 
-include 'app'
 include 'adapter'
-include 'domain'
+include 'adapter:persistence'
+include 'adapter:persistence:db-model'
+include 'adapter:ui'
+include 'app'
 include 'business'
+include 'domain'
+include 'domain:shared'

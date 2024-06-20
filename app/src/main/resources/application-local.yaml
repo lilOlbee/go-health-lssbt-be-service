@@ -1,0 +1,21 @@
+logging:
+  level:
+    org.jooq: ERROR
+    com.zaxxer.hikari: ERROR
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+    hikari:
+      jdbc-url: jdbc:postgresql://localhost:5432/postgres
+      username: postgres
+      password: postgres
+
+local-storage:
+  type: db # supported types : `db`, `txt`
+  txt:
+    file-path: "../adapter/persistence/db-model/src/localstorage"
+    file-name: "issues.txt"
+

@@ -1,1 +1,25 @@
-spring.application.name: lssbt.service
+spring:
+  application.name: lssbt-be-service
+  profiles.active: local
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: ${DATASOURCE_URL}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      jdbc-url: ${DATASOURCE_URL}
+      username: ${DATASOURCE_USERNAME}
+      password: ${DATASOURCE_PASSWORD}
+      connection-timeout: 30000
+      maximum-pool-size: 5
+      driver-class-name: org.postgresql.Driver
+  jooq:
+    sql-dialect: postgres
+
+local-storage:
+  type: ${LOCAL_STORAGE_TYPE} # supported types : `db`, `txt`
+  txt:
+    file-path: ${LOCAL_STORAGE_TXT_FILE_PATH}
+    file-name: ${LOCAL_STORAGE_TXT_FILE_NAME}
+

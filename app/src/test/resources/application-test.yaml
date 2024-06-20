@@ -1,1 +1,31 @@
+server.port: 8080
+
+# just for beautiful CLI UI
+logging.level.org.jooq: OFF
+
 spring.application.name: lssbt.service
+
+
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      jdbc-url: jdbc:postgresql://localhost:5432/postgres
+      username: postgres
+      password: postgres
+      connection-timeout: 30000
+      maximum-pool-size: 5
+      driver-class-name: org.postgresql.Driver
+  jooq:
+    sql-dialect: postgres
+
+local-storage:
+  type: db # supported types : `db`, `txt`
+  txt:
+    file-path: "../adapter/persistence/db-model/src/localstorage"
+    file-name: "issues.txt"
+
