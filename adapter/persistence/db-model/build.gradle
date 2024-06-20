@@ -1,5 +1,4 @@
 import nu.studer.gradle.jooq.JooqEdition
-import org.jooq.meta.jaxb.Logging
 
 apply plugin: 'nu.studer.jooq'
 
@@ -17,7 +16,6 @@ jooq {
 
             generateSchemaSourceOnCompilation = true
             generationTool {
-//                logging = Logging.WARN
                 jdbc {
                     driver = 'org.postgresql.Driver'
                     url = 'jdbc:postgresql://localhost:5432/postgres'

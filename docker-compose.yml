@@ -1,18 +1,6 @@
 version: '3.9'
 
 services:
-  app:
-    container_name: test
-    image: 'sha256:65d1d5e50485b3a766941259155ee92e3530dcf3908db68fbf3d9b50d75f8919'
-    depends_on:
-      - postgres
-    environment:
-      - DATASOURCE_URL=jdbc:postgresql://localhost:5432/postgres
-      - DATASOURCE_USERNAM=postgres
-      - DATASOURCE_PASSWORD=postgres
-      - LOCAL_STORAGE_TYPE=db
-      - LOCAL_STORAGE_TXT_FILE_NAME=issues.txt
-
   postgres:
     image: 'postgres'
     restart: "unless-stopped"
