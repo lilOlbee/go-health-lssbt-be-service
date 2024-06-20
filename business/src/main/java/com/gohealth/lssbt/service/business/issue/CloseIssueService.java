@@ -29,7 +29,7 @@ public class CloseIssueService implements CloseIssueUseCase {
     try {
       entity = queryIssuePort.findOne(ImmutableFindIssueByIdQuery.of(command.id()));
     } catch (RuntimeException e) {
-      // throw exception and move `System.out.printf` to UI Controller
+      // TODO: throw exception and move `System.out.printf` to UI Controller
       System.out.printf("\nIssue with id '%s' was not found.\n", command.id());
       return;
     }
@@ -44,7 +44,7 @@ public class CloseIssueService implements CloseIssueUseCase {
             .link(entity.link())
             .build());
 
-    // throw exception and move `System.out.printf` to UI Controller
+    // TODO: throw exception and move `System.out.printf` to UI Controller
     System.out.printf(
         "\nCongratulations, issue with id '%s' was successfully closed.\n", command.id());
   }

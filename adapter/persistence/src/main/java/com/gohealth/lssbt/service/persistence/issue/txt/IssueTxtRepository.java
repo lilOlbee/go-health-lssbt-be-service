@@ -55,7 +55,7 @@ public class IssueTxtRepository implements IssuePersistenceAdapter {
       bufferedWriter = new BufferedWriter(new FileWriter(filePath + "/" + fileName));
       issues.forEach(this::insert);
     } catch (IOException e) {
-      // throw exception and move `System.out.printf` to UI Controller
+      // TODO: throw exception and move `System.out.printf` to UI Controller
       System.out.printf(
           "\nIOException occurred while using bufferedWriter with '%s' and name '%s'.\n",
           filePath, fileName);
@@ -81,7 +81,7 @@ public class IssueTxtRepository implements IssuePersistenceAdapter {
       bufferedWriter.newLine();
       bufferedWriter.flush();
     } catch (IOException e) {
-      // throw exception and move `System.out.printf` to UI Controller
+      // TODO: throw exception and move `System.out.printf` to UI Controller
       System.out.printf(
           "\nIOException occurred while using bufferedWriter with '%s' and name '%s'.\n",
           filePath, fileName);
@@ -110,7 +110,7 @@ public class IssueTxtRepository implements IssuePersistenceAdapter {
           .filter(entity -> !query.filterByOpenStatus() || entity.status().equals(OPEN.getValue()))
           .toList();
     } catch (FileNotFoundException e) {
-      // throw exception and move `System.out.printf` to UI Controller
+      // TODO: throw exception and move `System.out.printf` to UI Controller
       System.out.printf("\nFile with path '%s' and name '%s' was not found.\n", filePath, fileName);
       return Collections.emptyList();
     }
