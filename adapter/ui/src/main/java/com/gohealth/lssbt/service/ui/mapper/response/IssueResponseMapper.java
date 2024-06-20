@@ -6,6 +6,7 @@ import com.gohealth.lssbt.service.ui.dto.issue.*;
 import com.gohealth.lssbt.service.ui.dto.issue.FindIssueByIdDetailResponse;
 import java.util.List;
 
+// mapStruct could be used, but I prefer this method of mapping.
 public abstract class IssueResponseMapper {
 
   public static CreateIssueDetailResponse mapToCreateIssueDetailResponse(CreateIssueEntity entity) {

@@ -1,5 +1,6 @@
 package com.gohealth.lssbt.service.persistence.issue.txt;
 
+import static com.gohealth.lssbt.service.persistence.issue.txt.AbstractIssueTxtRepository.DELIMITER;
 import static lssbt.service.domain.shared.issue.IssueStatus.CLOSED;
 import static lssbt.service.domain.shared.issue.IssueStatus.OPEN;
 
@@ -19,8 +20,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @ConditionalOnProperty(name = "local-storage.type", havingValue = "txt")
-public class IssueTxtRepository extends AbstractIssueTxtRepository
-    implements IssuePersistenceAdapter {
+public class IssueTxtRepository implements IssuePersistenceAdapter {
 
   @Value("${local-storage.txt.file-path}")
   private String filePath;
@@ -35,8 +35,8 @@ public class IssueTxtRepository extends AbstractIssueTxtRepository
     this.bufferedWriter = bufferedWriter;
   }
 
-  // It would be better to replace only one line, which is related to issue we want to close, but
-  // for now I decided to let it be as it is.
+  // it would be better to replace only the line that is related to the issue we want to close, but
+  // for now I decided to leave it as it is
   @Override
   public void close(IssueEntity entity) {
     final ListIssuesQuery listQuery = ImmutableListIssuesQuery.of(true);
@@ -50,18 +50,20 @@ public class IssueTxtRepository extends AbstractIssueTxtRepository
             .toList();
 
     try {
-      // close and open with `append = false`, so the file will be rewrited
+      // close and open with `append = false`,  so the file will be rewritten
       bufferedWriter.close();
       bufferedWriter = new BufferedWriter(new FileWriter(filePath + "/" + fileName));
       issues.forEach(this::insert);
-
-    } catch (Exception e) {
-      throw new RuntimeException(e);
+    } catch (IOException e) {
+      // throw exception and move `System.out.printf` to UI Controller
+      System.out.printf(
+          "\nIOException occurred while using bufferedWriter with '%s' and name '%s'.\n",
+          filePath, fileName);
     }
   }
 
-  // It would be better to use another delimiter here, because it could be problem if input data
-  // include this delimiter in it, but for now I decided to let it be as it is.
+  // it would be better to use another delimiter here, as it could be a problem if the input data
+  // will include this delimiter, but for now I decided to leave it as it is
   @Override
   public void insert(IssueEntity entity) {
     final String inputData =
@@ -79,7 +81,10 @@ public class IssueTxtRepository extends AbstractIssueTxtRepository
       bufferedWriter.newLine();
       bufferedWriter.flush();
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      // throw exception and move `System.out.printf` to UI Controller
+      System.out.printf(
+          "\nIOException occurred while using bufferedWriter with '%s' and name '%s'.\n",
+          filePath, fileName);
     }
   }
 
@@ -89,15 +94,11 @@ public class IssueTxtRepository extends AbstractIssueTxtRepository
     final List<IssueEntity> result =
         this.list(listQuery).stream().filter(entity -> entity.id().equals(query.id())).toList();
 
-    if (result.isEmpty()) {
-      throw new RuntimeException("Issue with id " + query.id() + " not found");
-    }
-
     return result.getFirst();
   }
 
-  // It would be better to filter when reading from file then after, but for now I decided to let it
-  // be as it is.
+  // it would be better to filter when reading from the file rather than afterward, but for now I
+  // decided to leave it as it is
   @Override
   public List<IssueEntity> list(ListIssuesQuery query) {
     try {
@@ -108,8 +109,10 @@ public class IssueTxtRepository extends AbstractIssueTxtRepository
           .map(IssueTxtRepositoryMapper::map)
           .filter(entity -> !query.filterByOpenStatus() || entity.status().equals(OPEN.getValue()))
           .toList();
-    } catch (Exception e) {
-      throw new RuntimeException(e);
+    } catch (FileNotFoundException e) {
+      // throw exception and move `System.out.printf` to UI Controller
+      System.out.printf("\nFile with path '%s' and name '%s' was not found.\n", filePath, fileName);
+      return Collections.emptyList();
     }
   }
 }

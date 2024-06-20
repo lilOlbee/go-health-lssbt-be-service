@@ -3,5 +3,7 @@ dependencies {
     api project(':business')
     api project(':domain')
 
-    implementation("org.springframework:spring-web:${springContextVersion}")
+    api("org.jooq:jooq:${jooqVersion}")
+
+    implementation("com.zaxxer:HikariCP:${hikariCPVersion}")
 }

@@ -1,6 +1,5 @@
 apply plugin: "application"
 apply plugin: "org.springframework.boot"
-apply plugin: "com.google.cloud.tools.jib"
 
 dependencies {
     api project(':adapter')
@@ -17,19 +16,10 @@ dependencies {
     }
 }
 
-// for successful gradle bootRun CLI
 bootRun {
     standardInput = System.in
 }
 
-// for successful gradle bootRun CLI
 run {
     standardInput = System.in
-}
-
-jib {
-    from {
-        image = 'openjdk:21-jdk-slim'
-    }
-    allowInsecureRegistries = true
 }

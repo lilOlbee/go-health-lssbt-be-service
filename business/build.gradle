@@ -1,8 +1,8 @@
 dependencies {
     api project(':domain')
 
-    api("org.springframework:spring-context:${springContextVersion}")
+    api("org.springframework:spring-context:${springVersion}")
     api("org.springframework.boot:spring-boot-autoconfigure:${springBootVersion}")
 
-    implementation("org.springframework:spring-tx:${springTxVersion}")
+    implementation("org.springframework:spring-tx:${springVersion}")
 }

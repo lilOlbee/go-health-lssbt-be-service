@@ -15,7 +15,6 @@ import java.util.List;
 import lssbt.service.domain.shared.issue.IssueStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CreateIssueService implements CreateIssueUseCase {
@@ -32,7 +31,6 @@ public class CreateIssueService implements CreateIssueUseCase {
   }
 
   @Override
-  @Transactional
   public CreateIssueEntity execute(CreateIssueCommand command) {
     final String id = resolveIncrementedId();
 
@@ -62,9 +60,9 @@ public class CreateIssueService implements CreateIssueUseCase {
     return ImmutableCreateIssueEntity.builder().id(id).build();
   }
 
-  // list all issues (even closed) so the new id is always unique.
   private String resolveIncrementedId() {
     final ListIssuesQuery query = ImmutableListIssuesQuery.of(false);
+    // list all issues (even closed) so the new id is always unique.
     final List<Integer> issueIds =
         queryIssuePort.list(query).stream()
             .map(issue -> issue.id().replace(IDENTIFICATION_DELIMITER, ""))

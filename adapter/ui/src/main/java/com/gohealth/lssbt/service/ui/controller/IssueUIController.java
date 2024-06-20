@@ -46,10 +46,8 @@ public class IssueUIController implements UIController {
         case CREATE_ISSUE -> handleCreateIssueRequest();
         case CLOSE_ISSUE -> handleCloseIssueRequest();
         case LIST_ISSUES -> handleListAllIssuesRequest();
-
         case EXIT -> System.exit(0);
         case HELP -> printHelp();
-
         case null -> System.out.println("That command is not supported. Please, try again.");
       }
     }

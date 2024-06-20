@@ -5,9 +5,9 @@ import am.ik.yavi.core.Validator;
 import com.gohealth.lssbt.service.ui.dto.issue.CloseIssueRequest;
 import com.gohealth.lssbt.service.ui.dto.issue.CreateIssueRequest;
 
-// Usually DTO objects are validated with jakarta validator, but in case of CLI I decided to try
-// validation with yavi
-public class DTOValidator {
+// usually, DTO objects are validated with Jakarta Validator, but for the CLI, I decided to try it
+// with Yavi.
+public abstract class IssueDTOsValidator {
 
   public static final Validator<CreateIssueRequest> createIssueRequestValidator =
       ValidatorBuilder.<CreateIssueRequest>of()

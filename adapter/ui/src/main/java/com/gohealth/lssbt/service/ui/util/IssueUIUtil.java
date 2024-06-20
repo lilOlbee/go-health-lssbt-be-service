@@ -1,7 +1,7 @@
 package com.gohealth.lssbt.service.ui.util;
 
-import static com.gohealth.lssbt.service.ui.dto.issue.validation.DTOValidator.closeIssueRequestValidator;
-import static com.gohealth.lssbt.service.ui.dto.issue.validation.DTOValidator.createIssueRequestValidator;
+import static com.gohealth.lssbt.service.ui.dto.issue.validation.IssueDTOsValidator.closeIssueRequestValidator;
+import static com.gohealth.lssbt.service.ui.dto.issue.validation.IssueDTOsValidator.createIssueRequestValidator;
 
 import am.ik.yavi.core.ConstraintViolation;
 import com.gohealth.lssbt.service.ui.dto.issue.*;
@@ -41,10 +41,6 @@ public abstract class IssueUIUtil {
     return ImmutableCloseIssueRequest.builder().id(id).build();
   }
 
-  /*
-     returns `false` if not valid
-     returns `true` if valid
-  */
   public static boolean isCreateIssueRequestValid(CreateIssueRequest request) {
     final List<ConstraintViolation> constraintViolations =
         createIssueRequestValidator.validate(request);
@@ -58,10 +54,6 @@ public abstract class IssueUIUtil {
     return true;
   }
 
-  /*
-     returns `false` if not valid
-     returns `true` if valid
-  */
   public static boolean isCloseIssueRequestValid(CloseIssueRequest request) {
     final List<ConstraintViolation> constraintViolations =
         closeIssueRequestValidator.validate(request);

@@ -34,8 +34,6 @@ public class IssueDBRepositoryConfiguration {
     hikariConfig.setConnectionTimeout(Long.parseLong(connectionTimeout));
     hikariConfig.setAutoCommit(true);
     hikariConfig.setDriverClassName(driverClassName);
-    hikariConfig.setTransactionIsolation("TRANSACTION_READ_COMMITTED");
-    hikariConfig.setPoolName("postgres-db");
     hikariConfig.setMaximumPoolSize(maxPoolSize);
     return new HikariDataSource(hikariConfig);
   }

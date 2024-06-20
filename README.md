@@ -38,3 +38,4 @@ implement the three methods in the `IssueTxtTestsHelper` class and remove the `E
 - Implement custom error codes, errors and exceptions.
 - Write tests for the persistence and ui layers.
 - CI/CD pipeline
+- Java Docs

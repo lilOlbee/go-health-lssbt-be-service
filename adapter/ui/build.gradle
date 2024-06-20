@@ -2,7 +2,5 @@ dependencies {
     api project(':business')
     api project(':domain')
 
-    implementation("org.springframework.boot:spring-boot-starter-validation:${springBootVersion}")
-    implementation("org.springframework:spring-web:6.1.9")
-    implementation("am.ik.yavi:yavi:0.14.0")
+    implementation("am.ik.yavi:yavi:${yaviVersion}")
 }

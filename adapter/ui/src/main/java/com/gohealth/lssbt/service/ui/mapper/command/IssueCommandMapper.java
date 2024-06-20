@@ -7,7 +7,7 @@ import com.gohealth.lssbt.service.domain.issue.command.ImmutableCreateIssueComma
 import com.gohealth.lssbt.service.ui.dto.issue.CloseIssueRequest;
 import com.gohealth.lssbt.service.ui.dto.issue.CreateIssueRequest;
 
-// mapstruct could be used, but Ii prefer this way of mapping
+// mapStruct could be used, but I prefer this method of mapping.
 public abstract class IssueCommandMapper {
 
   public static CreateIssueCommand map(CreateIssueRequest request) {
