@@ -2,13 +2,10 @@ package com.gohealth.lssbt.service.domain.issue.entity;
 
 import java.time.OffsetDateTime;
 import java.util.Optional;
-import lssbt.service.domain.shared.entity.Entity;
 import org.immutables.value.Value;
 
 @Value.Immutable
-public sealed interface IssueEntity extends Entity permits ImmutableIssueEntity {
-
-  String id();
+public sealed interface IssueEntity extends BaseIssueEntity permits ImmutableIssueEntity {
 
   String description();
 

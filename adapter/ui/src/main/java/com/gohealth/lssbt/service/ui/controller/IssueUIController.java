@@ -6,7 +6,6 @@ import com.gohealth.lssbt.service.business.issue.inbound.CloseIssueUseCase;
 import com.gohealth.lssbt.service.business.issue.inbound.CreateIssueUseCase;
 import com.gohealth.lssbt.service.business.issue.inbound.ListIssueUseCase;
 import com.gohealth.lssbt.service.ui.dto.issue.CloseIssueRequest;
-import com.gohealth.lssbt.service.ui.dto.issue.CreateIssueDetailResponse;
 import com.gohealth.lssbt.service.ui.dto.issue.CreateIssueRequest;
 import com.gohealth.lssbt.service.ui.dto.issue.ListIssueDetailResponse;
 import com.gohealth.lssbt.service.ui.mapper.command.IssueCommandMapper;
@@ -59,9 +58,8 @@ public class IssueUIController implements UIController {
   private void handleCreateIssueRequest() {
     final CreateIssueRequest request = resolveCreateIssueRequest(scanner);
     if (isCreateIssueRequestValid(request)) {
-      final CreateIssueDetailResponse response =
-          IssueResponseMapper.mapToCreateIssueDetailResponse(
-              createIssueUseCase.execute(IssueCommandMapper.map(request)));
+      IssueResponseMapper.mapToCreateIssueDetailResponse(
+          createIssueUseCase.execute(IssueCommandMapper.map(request)));
     }
   }
 
@@ -90,12 +88,12 @@ public class IssueUIController implements UIController {
     System.out.print(
         """
 
-                          Welcome to local storage system bugs tracker service!
+                          Welcome to the Local Storage System Bugs Tracker Service!
                           Supported commands:
-                          1. "create" -> creates new issue
-                          2. "close" -> closes issue
-                          3. "list" -> lists all issues
-                          4. "exit" -> exit from the application
+                          1. "create" -> create new issue
+                          2. "close" -> close issue
+                          3. "list" -> list all (open) issues
+                          4. "exit" -> exit the app
                           5. "help" -> print the help command menu
                           """);
   }

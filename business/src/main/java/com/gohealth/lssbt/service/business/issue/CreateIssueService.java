@@ -4,8 +4,9 @@ import com.gohealth.lssbt.service.business.issue.inbound.CreateIssueUseCase;
 import com.gohealth.lssbt.service.business.issue.outbound.PersistIssuePort;
 import com.gohealth.lssbt.service.business.issue.outbound.QueryIssuePort;
 import com.gohealth.lssbt.service.domain.issue.command.CreateIssueCommand;
+import com.gohealth.lssbt.service.domain.issue.entity.CreateIssueEntity;
+import com.gohealth.lssbt.service.domain.issue.entity.ImmutableCreateIssueEntity;
 import com.gohealth.lssbt.service.domain.issue.entity.ImmutableIssueEntity;
-import com.gohealth.lssbt.service.domain.issue.entity.IssueEntity;
 import com.gohealth.lssbt.service.domain.issue.query.ImmutableFindIssueByIdQuery;
 import com.gohealth.lssbt.service.domain.issue.query.ImmutableListIssuesQuery;
 import com.gohealth.lssbt.service.domain.issue.query.ListIssuesQuery;
@@ -32,7 +33,7 @@ public class CreateIssueService implements CreateIssueUseCase {
 
   @Override
   @Transactional
-  public IssueEntity execute(CreateIssueCommand command) {
+  public CreateIssueEntity execute(CreateIssueCommand command) {
     final String id = resolveIncrementedId();
 
     if (command.parentId().isPresent()) {
@@ -40,8 +41,8 @@ public class CreateIssueService implements CreateIssueUseCase {
         queryIssuePort.findOne(ImmutableFindIssueByIdQuery.of(command.parentId().get()));
       } catch (RuntimeException e) {
         // throw exception and move `System.out.printf` to UI Controller
-        System.out.printf("\nParent issue with id '%s' was not found.\n", command.parentId());
-        return null;
+        System.out.printf("\nParent issue with id '%s' was not found.\n", command.parentId().get());
+        return ImmutableCreateIssueEntity.builder().id("-1").build();
       }
     }
 
@@ -58,7 +59,7 @@ public class CreateIssueService implements CreateIssueUseCase {
     // throw exception and move `System.out.printf` to UI Controller
     System.out.printf("\nCongratulations, issue was successfully created with id '%s'.\n", id);
 
-    return queryIssuePort.findOne(ImmutableFindIssueByIdQuery.of(id));
+    return ImmutableCreateIssueEntity.builder().id(id).build();
   }
 
   // list all issues (even closed) so the new id is always unique.

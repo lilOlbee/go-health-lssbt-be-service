@@ -1,5 +1,6 @@
 package com.gohealth.lssbt.service.ui.mapper.response;
 
+import com.gohealth.lssbt.service.domain.issue.entity.CreateIssueEntity;
 import com.gohealth.lssbt.service.domain.issue.entity.IssueEntity;
 import com.gohealth.lssbt.service.ui.dto.issue.*;
 import com.gohealth.lssbt.service.ui.dto.issue.FindIssueByIdDetailResponse;
@@ -7,7 +8,7 @@ import java.util.List;
 
 public abstract class IssueResponseMapper {
 
-  public static CreateIssueDetailResponse mapToCreateIssueDetailResponse(IssueEntity entity) {
+  public static CreateIssueDetailResponse mapToCreateIssueDetailResponse(CreateIssueEntity entity) {
     return ImmutableCreateIssueDetailResponse.of(entity.id());
   }
 

@@ -1,9 +1,9 @@
 package com.gohealth.lssbt.service.business.issue.inbound;
 
 import com.gohealth.lssbt.service.domain.issue.command.CreateIssueCommand;
-import com.gohealth.lssbt.service.domain.issue.entity.IssueEntity;
+import com.gohealth.lssbt.service.domain.issue.entity.CreateIssueEntity;
 
 public interface CreateIssueUseCase {
 
-  IssueEntity execute(CreateIssueCommand command);
+  CreateIssueEntity execute(CreateIssueCommand command);
 }
