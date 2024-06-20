@@ -43,4 +43,26 @@ public class CreateIssueServiceTests extends IssueTestsHelper {
 
     deletePrerequisites();
   }
+
+  @Test
+  public void thatIssueWithNotExistingParentIdCannotBeCreated() {
+    deletePrerequisites();
+
+    final ListIssuesQuery query = ImmutableListIssuesQuery.of(true);
+    final int issueListSizeBefore = listIssueUseCase.execute(query).size();
+
+    final String notExistingParentId = resolveIncrementedId();
+    final CreateIssueCommand command =
+        ImmutableCreateIssueCommand.builder()
+            .description(openedIssue1.description())
+            .parentId(notExistingParentId)
+            .link(openedIssue1.link())
+            .build();
+    createIssueUseCase.execute(command);
+
+    final int issueListSizeAfter = listIssueUseCase.execute(query).size();
+    assertEquals(issueListSizeBefore, issueListSizeAfter);
+
+    deletePrerequisites();
+  }
 }

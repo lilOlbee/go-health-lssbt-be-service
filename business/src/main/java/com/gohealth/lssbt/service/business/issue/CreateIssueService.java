@@ -35,6 +35,16 @@ public class CreateIssueService implements CreateIssueUseCase {
   public IssueEntity execute(CreateIssueCommand command) {
     final String id = resolveIncrementedId();
 
+    if (command.parentId().isPresent()) {
+      try {
+        queryIssuePort.findOne(ImmutableFindIssueByIdQuery.of(command.parentId().get()));
+      } catch (RuntimeException e) {
+        // throw exception and move `System.out.printf` to UI Controller
+        System.out.printf("\nParent issue with id '%s' was not found.\n", command.parentId());
+        return null;
+      }
+    }
+
     persistIssuePort.insert(
         ImmutableIssueEntity.builder()
             .id(id)
@@ -44,6 +54,9 @@ public class CreateIssueService implements CreateIssueUseCase {
             .creationTimestampt(OffsetDateTime.now())
             .link(command.link())
             .build());
+
+    // throw exception and move `System.out.printf` to UI Controller
+    System.out.printf("\nCongratulations, issue was successfully created with id '%s'.\n", id);
 
     return queryIssuePort.findOne(ImmutableFindIssueByIdQuery.of(id));
   }

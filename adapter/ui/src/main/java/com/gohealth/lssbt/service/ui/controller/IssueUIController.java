@@ -62,9 +62,6 @@ public class IssueUIController implements UIController {
       final CreateIssueDetailResponse response =
           IssueResponseMapper.mapToCreateIssueDetailResponse(
               createIssueUseCase.execute(IssueCommandMapper.map(request)));
-
-      System.out.printf(
-          "\nCongratulations, issue was successfully created with id '%s'.\n", response.id());
     }
   }
 
@@ -72,9 +69,6 @@ public class IssueUIController implements UIController {
     final CloseIssueRequest request = resolveCloseIssueRequest(scanner);
     if (isCloseIssueRequestValid(request)) {
       closeIssueUseCase.execute(IssueCommandMapper.map(request));
-
-      System.out.printf(
-          "\nCongratulations, issue with id '%s' was successfully closed.\n", request.id());
     }
   }
 

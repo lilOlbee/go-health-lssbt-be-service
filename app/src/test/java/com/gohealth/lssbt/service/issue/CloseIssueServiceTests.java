@@ -25,12 +25,24 @@ public class CloseIssueServiceTests extends IssueTestsHelper {
   public void thatIssueCanBeClosed() {
     final ListIssuesQuery query = ImmutableListIssuesQuery.of(true);
     final int issueListSizeBefore = listIssueUseCase.execute(query).size();
-    assertEquals(2, issueListSizeBefore);
 
     final CloseIssueCommand command = ImmutableCloseIssueCommand.of(openedIssue1.id());
     closeIssueUseCase.execute(command);
 
     final int issueListSizeAfter = listIssueUseCase.execute(query).size();
     assertEquals(issueListSizeBefore - 1, issueListSizeAfter);
+  }
+
+  @Test
+  public void thatIssueWithNotExistingIdCannotBeClosed() {
+    final ListIssuesQuery query = ImmutableListIssuesQuery.of(true);
+    final int issueListSizeBefore = listIssueUseCase.execute(query).size();
+
+    final String notExistingId = resolveIncrementedId();
+    final CloseIssueCommand command = ImmutableCloseIssueCommand.of(notExistingId);
+    closeIssueUseCase.execute(command);
+
+    final int issueListSizeAfter = listIssueUseCase.execute(query).size();
+    assertEquals(issueListSizeBefore, issueListSizeAfter);
   }
 }

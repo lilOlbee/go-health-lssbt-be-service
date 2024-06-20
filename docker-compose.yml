@@ -11,4 +11,4 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     volumes:
-      - ./adapter/persistence/db-model/src/db/create_initial_tables.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./adapter/persistence/db-model/src/localstorage/create_initial_tables.sql:/docker-entrypoint-initdb.d/init.sql

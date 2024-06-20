@@ -60,10 +60,6 @@ public class IssueDBRepository implements IssuePersistenceAdapter {
     final Result<Record> result =
         dslContext.select().from(ISSUE).where(ISSUE.ID.eq(query.id())).fetch();
 
-    if (result.isEmpty()) {
-      throw new RuntimeException("Issue with id " + query.id() + " not found");
-    }
-
     return result.getFirst().map(IssueDBRepositoryMapper::map);
   }
 

@@ -25,11 +25,14 @@ public class CloseIssueService implements CloseIssueUseCase {
 
   @Override
   public void execute(CloseIssueCommand command) {
-    //    try {
-    final IssueEntity entity = queryIssuePort.findOne(ImmutableFindIssueByIdQuery.of(command.id()));
-    //    } catch (BusinessException e) {
-    //      throw new Busi
-    //    }
+    final IssueEntity entity;
+    try {
+      entity = queryIssuePort.findOne(ImmutableFindIssueByIdQuery.of(command.id()));
+    } catch (RuntimeException e) {
+      // throw exception and move `System.out.printf` to UI Controller
+      System.out.printf("\nIssue with id '%s' was not found.\n", command.id());
+      return;
+    }
 
     persistIssuePort.close(
         ImmutableIssueEntity.builder()
@@ -40,5 +43,9 @@ public class CloseIssueService implements CloseIssueUseCase {
             .creationTimestampt(entity.creationTimestampt())
             .link(entity.link())
             .build());
+
+    // throw exception and move `System.out.printf` to UI Controller
+    System.out.printf(
+        "\nCongratulations, issue with id '%s' was successfully closed.\n", command.id());
   }
 }
